@@ -714,7 +714,7 @@ def align_system_inter_lists(systems, all_cut_indices,list_prev_max_dict=None):
         align_all_shift_combinations(selected_sys,shift_combs)
 
         all_type = onp.zeros(shape=(size, max_num_atoms), dtype=onp.int32)
-        all_mask = onp.zeros(shape=(size, max_num_atoms), dtype=onp.bool)
+        all_mask = onp.zeros(shape=(size, max_num_atoms), dtype=bool)
         positions = onp.zeros(shape=(size, max_num_atoms, 3), dtype=onp.float32)
         all_body_2_neigh_list = onp.zeros(shape=(size, max_num_atoms, max_neigh_count,5), dtype=onp.int32)
 
@@ -734,8 +734,8 @@ def align_system_inter_lists(systems, all_cut_indices,list_prev_max_dict=None):
         list_max_body_2_cnt.append(max_body_2_count)
 
         all_body_2_list = onp.zeros(shape=(size,max_body_2_count,7), dtype=onp.int32)
-        all_body_2_mask = onp.zeros(shape=(size,max_body_2_count), dtype=onp.bool)
-        all_body_2_trip_mask = onp.zeros(shape=(size,max_body_2_count), dtype=onp.bool)
+        all_body_2_mask = onp.zeros(shape=(size,max_body_2_count), dtype=bool)
+        all_body_2_trip_mask = onp.zeros(shape=(size,max_body_2_count), dtype=bool)
 
         align_body_2_inter_list(selected_sys,all_body_2_list,all_body_2_mask,all_body_2_trip_mask)
 
@@ -753,8 +753,8 @@ def align_system_inter_lists(systems, all_cut_indices,list_prev_max_dict=None):
         list_max_body_3_cnt.append(max_body_3_count)
 
         all_body_3_list = onp.zeros(shape=(size,max_body_3_count,5), dtype=onp.int32)
-        all_body_3_mask = onp.zeros(shape=(size,max_body_3_count), dtype=onp.bool)
-        all_body_3_shift = onp.zeros(shape=(size,max_body_3_count,2), dtype=onp.bool)
+        all_body_3_mask = onp.zeros(shape=(size,max_body_3_count), dtype=bool)
+        all_body_3_shift = onp.zeros(shape=(size,max_body_3_count,2), dtype=bool)
 
         align_body_3_inter_list(selected_sys,all_body_3_list,all_body_3_mask,all_body_3_shift)
         # align 4-body
@@ -772,7 +772,7 @@ def align_system_inter_lists(systems, all_cut_indices,list_prev_max_dict=None):
         list_max_body_4_cnt.append(max_body_4_count)
 
         all_body_4_list = onp.zeros(shape=(size,max_body_4_count,7), dtype=onp.int32)
-        all_body_4_mask = onp.zeros(shape=(size,max_body_4_count), dtype=onp.bool)
+        all_body_4_mask = onp.zeros(shape=(size,max_body_4_count), dtype=bool)
         all_body_4_shift = onp.zeros(shape=(size,max_body_4_count,12), dtype=onp.int8)
 
         align_body_4_inter_list(selected_sys,all_body_4_list,all_body_4_mask,all_body_4_shift)
@@ -789,7 +789,7 @@ def align_system_inter_lists(systems, all_cut_indices,list_prev_max_dict=None):
 
         list_max_hbond_cnt.append(max_hbond_count)
         all_hbond_list = onp.zeros(shape=(size,max_hbond_count,7), dtype=onp.int32)
-        all_hbond_mask = onp.zeros(shape=(size,max_hbond_count), dtype=onp.bool)
+        all_hbond_mask = onp.zeros(shape=(size,max_hbond_count), dtype=bool)
         all_hbond_shift = onp.zeros(shape=(size,max_hbond_count,6), dtype=onp.int8)
         align_hbond_inter_list(selected_sys,all_hbond_list,all_hbond_mask,all_hbond_shift)
 
