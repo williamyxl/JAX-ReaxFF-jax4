@@ -588,38 +588,50 @@ def symm_force_field(flattened_force_field,flattened_non_dif_params):
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
     for i in range(81, 87):
-        flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
-        # flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        if isinstance(flattened_force_field[i], np.ndarray):
+            flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        else:
+            flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
     for i in range(8, 22):
-        flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
-        # flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        if isinstance(flattened_force_field[i], np.ndarray):
+            flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        else:
+            flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
-    flattened_force_field[57][body_2_indices] = flattened_force_field[57].transpose()[body_2_indices]
-    # flattened_force_field[57].at[body_2_indices].set(flattened_force_field[57].transpose()[body_2_indices])
+    if isinstance(flattened_force_field[57], np.ndarray):
+        flattened_force_field[57].at[body_2_indices].set(flattened_force_field[57].transpose()[body_2_indices])
+    else:
+        flattened_force_field[57][body_2_indices] = flattened_force_field[57].transpose()[body_2_indices]
     # flattened_force_field[57] = jax.ops.index_update(flattened_force_field[57],  #vover
     #             body_2_indices, flattened_force_field[57].transpose()[body_2_indices])
 
     # 3-body parameters
-    flattened_force_field[36][body_2_indices] = flattened_force_field[36].transpose()[body_2_indices]
-    # flattened_force_field[36].at[body_3_indices_dst].set(flattened_force_field[36].transpose()[body_3_indices_src])
+    if isinstance(flattened_force_field[36], np.ndarray):
+        flattened_force_field[36].at[body_3_indices_dst].set(flattened_force_field[36].transpose()[body_3_indices_src])
+    else:
+        flattened_force_field[36][body_3_indices_dst] = flattened_force_field[36].transpose()[body_3_indices_src]
     # flattened_force_field[36] = jax.ops.index_update(flattened_force_field[36],
     #                             body_3_indices_dst, flattened_force_field[36][body_3_indices_src])
 
-
     for i in range(38, 44):
-        flattened_force_field[i][body_3_indices_dst] = flattened_force_field[i].transpose()[body_3_indices_dst_src]
-        # flattened_force_field[i].at[body_3_indices_dst].set(flattened_force_field[i].transpose()[body_3_indices_dst_src])
+        if isinstance(flattened_force_field[i], np.ndarray):
+            flattened_force_field[i].at[body_3_indices_dst].set(flattened_force_field[i].transpose()[body_3_indices_src])
+        else:
+            flattened_force_field[i][body_3_indices_dst] = flattened_force_field[i].transpose()[body_3_indices_src]
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #                             body_3_indices_dst, flattened_force_field[i][body_3_indices_src])
     #4-body params
     for i in range(66, 71):
-        flattened_force_field[i][body_4_indices_dst] = flattened_force_field[i].transpose()[body_4_indices_dst_src]
-        # flattened_force_field[i].at[body_4_indices_dst].set(flattened_force_field[i].transpose()[body_4_indices_dst_src])
+        if isinstance(flattened_force_field[i], np.ndarray):
+            flattened_force_field[i].at[body_4_indices_dst].set(flattened_force_field[i].transpose()[body_4_indices_src])
+        else:
+            flattened_force_field[i][body_4_indices_dst] = flattened_force_field[i].transpose()[body_4_indices_dst_src]
+        # 
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #                             body_4_indices_dst, flattened_force_field[i][body_4_indices_src])
 
