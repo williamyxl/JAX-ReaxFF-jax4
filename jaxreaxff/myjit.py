@@ -42,7 +42,7 @@ def my_jit(fun, static_argnums=(),
   def callee(*args):
     args = list(args)
     for i in (static_array_argnums + static_list_of_array_argnums):
-      if type(args) != bool:
+      if type(args[i]) != bool:
         args[i] = args[i].val
 
     return fun(*args)
