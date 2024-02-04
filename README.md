@@ -1,3 +1,5 @@
+# this is a clone of https://github.com/msu-sparta/JAX-ReaxFF
+
 # JAX-ReaxFF
 JAX-ReaxFF: A Gradient Based Framework for Extremely Fast Optimization of Reactive Force Fields
 
