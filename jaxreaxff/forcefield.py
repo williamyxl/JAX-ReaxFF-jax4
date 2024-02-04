@@ -75,17 +75,17 @@ class ForceField:
         self.rvdw = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.p1co = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.p1co_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.p1co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.p1co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.eps = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.p2co = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.p2co_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.p2co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.p2co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.alf = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.p3co = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.p3co_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.p3co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.p3co_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.vop = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
 
@@ -101,17 +101,17 @@ class ForceField:
         self.rat = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.rob1 = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.rob1_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.rob1_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.rob1_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.rapt = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.rob2 = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.rob2_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.rob2_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.rob2_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.vnq = onp.zeros(shape=(self.total_num_atom_types), dtype=TYPE)
         self.rob3 = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.rob3_off = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
-        self.rob3_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=onp.bool)
+        self.rob3_off_mask = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=bool)
 
         self.ptp = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
         self.pdp = onp.zeros(shape=(self.total_num_atom_types,self.total_num_atom_types), dtype=TYPE)
