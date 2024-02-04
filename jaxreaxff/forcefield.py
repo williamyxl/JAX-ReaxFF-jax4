@@ -630,7 +630,7 @@ def symm_force_field(flattened_force_field,flattened_non_dif_params):
         if isinstance(flattened_force_field[i], np.ndarray):
             flattened_force_field[i].at[body_4_indices_dst].set(flattened_force_field[i].transpose()[body_4_indices_src])
         else:
-            flattened_force_field[i][body_4_indices_dst] = flattened_force_field[i].transpose()[body_4_indices_dst_src]
+            flattened_force_field[i][body_4_indices_dst] = flattened_force_field[i].transpose()[body_4_indices_src]
         # 
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #                             body_4_indices_dst, flattened_force_field[i][body_4_indices_src])
