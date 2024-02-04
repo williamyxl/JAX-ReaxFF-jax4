@@ -104,7 +104,7 @@ class Structure:
         else:
             self.atom_types = atom_types
         # mark the real and filler atoms
-        self.atom_mask = onp.zeros(shape=(self.num_atoms), dtype=onp.bool)
+        self.atom_mask = onp.zeros(shape=(self.num_atoms), dtype=bool)
         self.atom_mask[:real_atom_count] = 1
         self.do_minimization = do_minimization
         self.num_min_steps = num_min_steps
@@ -397,7 +397,7 @@ class Structure:
 
         global_body_2_count = inter_ctr
         # update the mask
-        global_body_2_inter_list_mask = onp.ones(shape=(global_body_2_count), dtype=onp.bool)
+        global_body_2_inter_list_mask = onp.ones(shape=(global_body_2_count), dtype=bool)
         global_body_2_inter_list_mask[-1] = 0
         #self.global_body_2_inter_list_mask[:self.global_body_2_count] = 1
         global_body_2_inter_list = onp.array(temp_global_body_2_inter_list,dtype=onp.int32)
@@ -524,13 +524,13 @@ class Structure:
 
         global_body_3_count = inter_ctr
 
-        global_body_3_inter_list_mask = onp.ones(shape=(global_body_3_count),dtype=onp.bool)
+        global_body_3_inter_list_mask = onp.ones(shape=(global_body_3_count),dtype=bool)
         global_body_3_inter_list_mask[-1] = 0 # for the filler inter.
         #self.global_body_3_inter_list_mask[:self.global_body_3_count] = 1
 
         #self.global_body_3_inter_list[self.global_body_3_count:,[1,2,3,4,5,6,7,8]] = -1
         global_body_3_inter_list = onp.array(temp_global_body_3_inter_list,dtype=onp.int32)
-        global_body_3_inter_shift_map = onp.array(temp_global_body_3_inter_shift_map,dtype=onp.bool)
+        global_body_3_inter_shift_map = onp.array(temp_global_body_3_inter_shift_map,dtype=bool)
         '''
         self.global_body_3_angles = Structure.calculate_3_body_angles(self.atom_positions,self.box_size,
                                                                        self.global_body_2_inter_list,
@@ -684,7 +684,7 @@ class Structure:
 
         global_body_4_inter_list = onp.array(temp_global_body_4_inter_list,dtype=onp.int32)
         global_body_4_inter_shift = onp.array(temp_global_body_4_inter_shift,dtype=onp.int8)
-        global_body_4_inter_list_mask = onp.ones(shape=(global_body_4_count),dtype=onp.bool)
+        global_body_4_inter_list_mask = onp.ones(shape=(global_body_4_count),dtype=bool)
         global_body_4_inter_list_mask[-1] = 0
         '''
         self.global_body_4_angles = Structure.calculate_body_4_angles_new(self.atom_positions,
