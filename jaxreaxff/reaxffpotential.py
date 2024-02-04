@@ -98,9 +98,9 @@ def calculate_total_energy_multi(flattened_force_field, flattened_non_dif_params
         torsion_rest_pot = jax.vmap(calculate_torsion_restraint_energy)(list_all_atom_pos[i], list_torsion_rest[i])
 
         if isinstance(all_pots, np.ndarray):
-                all_pots.at[jax.ops.index[start:end]].set(pots)
+                all_pots.at[start:end].set(pots)
         else:
-            all_pots[jax.ops.index[start:end]] = pots
+            all_pots[start:end] = pots
         # all_pots = jax.ops.index_update(all_pots, jax.ops.index[start:end], pots)
         #all_pots = jax.ops.index_update(all_pots, jax.ops.index[start:end], pots + bond_rest_pot + angle_rest_pot + torsion_rest_pot)
         #all_bo.append(bo)
@@ -1198,9 +1198,9 @@ def calculate_vdw_pot(atom_types,atom_mask,distance_matrices,tapering_matrices, 
     atom_mask_2d = atom_mask.reshape(-1,1) * atom_mask.reshape(1,-1)
     self_multip = np.ones((num_atoms,num_atoms))
     if isinstance(self_multip, np.ndarray):
-        self_multip.at[jax.ops.index[di]].set(0.5)
+        self_multip.at[di].set(0.5)
     else:
-        self_multip[jax.ops.index[di]] = 0.5
+        self_multip[di] = 0.5
     # self_multip = jax.ops.index_update(self_multip, jax.ops.index[di], 0.5)
     ewhtap_mat = ewhtap_mat * (self_multip * atom_mask_2d)
 
@@ -1220,9 +1220,9 @@ def calculate_coulomb_pot(atom_types, hulp1_mat,tapering_matrices, charges, gamm
     #half the self potential
     self_multip = np.ones((num_atoms,num_atoms))
     if isinstance(self_multip, np.ndarray):
-        self_multip.at[jax.ops.index[di]].set(0.5)
+        self_multip.at[di].set(0.5)
     else:
-        self_multip[jax.ops.index[di]] = 0.5
+        self_multip[di] = 0.5
     # self_multip = jax.ops.index_update(self_multip, jax.ops.index[di], 0.5)
     ephtap_mat = ephtap_mat * self_multip
     total_pot = np.sum(np.triu(np.sum(ephtap_mat,axis=0)))
@@ -1242,11 +1242,11 @@ def calculate_eem_charges(atom_types,atom_mask,total_charge,hulp1_mat,tapering_m
     A = np.zeros(shape=(num_atoms + 1, num_atoms + 1), dtype=TYPE)
     
     if isinstance(A, np.ndarray):
-        A.at[jax.ops.index[num_atoms, :num_atoms]].set(atom_mask)
-        A.at[jax.ops.index[:num_atoms, num_atoms]].set(atom_mask)
+        A.at[num_atoms, :num_atoms].set(atom_mask)
+        A.at[:num_atoms, num_atoms].set(atom_mask)
     else:
-        A[jax.ops.index[num_atoms, :num_atoms]] = atom_mask
-        A[jax.ops.index[:num_atoms, num_atoms]] = atom_mask
+        A[num_atoms, :num_atoms] = atom_mask
+        A[:num_atoms, num_atoms] = atom_mask
     # A = jax.ops.index_update(A, jax.ops.index[num_atoms, :num_atoms], atom_mask)
     # A = jax.ops.index_update(A, jax.ops.index[:num_atoms, num_atoms], atom_mask)
 
@@ -1259,17 +1259,17 @@ def calculate_eem_charges(atom_types,atom_mask,total_charge,hulp1_mat,tapering_m
 
     di = np.diag_indices(num_atoms)
     if isinstance(A_sub_mat, np.ndarray):
-        A_sub_mat.at[jax.ops.index[di]].set(2.0 * idempotential[atom_types] + A_sub_mat[di])
+        A_sub_mat.at[di].set(2.0 * idempotential[atom_types] + A_sub_mat[di])
     else:
-        A_sub_mat[jax.ops.index[di]] = 2.0 * idempotential[atom_types] + A_sub_mat[di]
+        A_sub_mat[di] = 2.0 * idempotential[atom_types] + A_sub_mat[di]
     # A_sub_mat = jax.ops.index_update(A_sub_mat, jax.ops.index[di], 2.0 * idempotential[atom_types] + A_sub_mat[di])
 
     if isinstance(A, np.ndarray):
-        A.at[jax.ops.index[:num_atoms,:num_atoms]].set(A_sub_mat)
-        A.at[jax.ops.index[num_atoms, num_atoms]].set(0.0)
+        A.at[:num_atoms,:num_atoms].set(A_sub_mat)
+        A.at[num_atoms, num_atoms].set(0.0)
     else:
-        A[jax.ops.index[:num_atoms,:num_atoms]] = A_sub_mat
-        A[jax.ops.index[num_atoms, num_atoms]] = 0.0
+        A[:num_atoms,:num_atoms] = A_sub_mat
+        A[num_atoms, num_atoms] = 0.0
     # A = jax.ops.index_update(A, jax.ops.index[:num_atoms,:num_atoms], A_sub_mat)
     # A = jax.ops.index_update(A, jax.ops.index[num_atoms, num_atoms], 0.0)
     #A[num_atoms][num_atoms] = 0.0
@@ -1277,11 +1277,11 @@ def calculate_eem_charges(atom_types,atom_mask,total_charge,hulp1_mat,tapering_m
     b = np.zeros(shape=(num_atoms+1), dtype=TYPE)
     #b[-1] = 0 # total charge is 0
     if isinstance(b, np.ndarray):
-        b.at[jax.ops.index[:num_atoms]].set(-1 * electronegativity[atom_types])
-        b.at[jax.ops.index[num_atoms]].set(total_charge)
+        b.at[:num_atoms].set(-1 * electronegativity[atom_types])
+        b.at[num_atoms].set(total_charge)
     else:
-        b[jax.ops.index[:num_atoms]] = -1 * electronegativity[atom_types]
-        b[jax.ops.index[num_atoms]] = total_charge
+        b[:num_atoms] = -1 * electronegativity[atom_types]
+        b[num_atoms] = total_charge
     # b = jax.ops.index_update(b, jax.ops.index[:num_atoms], -1 * electronegativity[atom_types])
     # total charge
     # b = jax.ops.index_update(b, jax.ops.index[num_atoms], total_charge)
@@ -1290,9 +1290,9 @@ def calculate_eem_charges(atom_types,atom_mask,total_charge,hulp1_mat,tapering_m
     #atom_charges = jax.scipy.linalg.solve_triangular(A, b)
     #atom_charges = jax.scipy.linalg.solve(A,b,sym_pos=True)
     if isinstance(atom_charges, np.ndarray):
-        atom_charges.at[jax.ops.index[:-1]].set(atom_charges[:-1] * atom_mask)
+        atom_charges.at[:-1].set(atom_charges[:-1] * atom_mask)
     else:
-        atom_charges[jax.ops.index[:-1]] = atom_charges[:-1] * atom_mask
+        atom_charges[:-1] = atom_charges[:-1] * atom_mask
     # atom_charges = jax.ops.index_update(atom_charges, jax.ops.index[:-1], atom_charges[:-1] * atom_mask)
     return atom_charges
 
