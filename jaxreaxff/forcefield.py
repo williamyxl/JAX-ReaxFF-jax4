@@ -571,6 +571,7 @@ class ForceField:
             self.flattened_force_field = pickle.load(input_file)
 
 def symm_force_field(flattened_force_field,flattened_non_dif_params):
+    print(type(flattened_force_field))
     flattened_force_field = np.array(flattened_force_field)
     # 2 body-params
     # for now global
