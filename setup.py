@@ -35,10 +35,10 @@ cuda_version = "cuda{}".format(cuda_version.replace(".",""))
 INSTALL_REQUIRES = [
   'jax',
   'jaxlib',
-  'numba>=0.51.2',
-  'numpy>=1.18.0,<1.22.0',
-  'scipy>=1.2.1',
-  'tabulate>=0.8.9'
+  'numba',
+  'numpy',
+  'scipy',
+  'tabulate'
 ]
 
 # https://packaging.python.org/guides/making-a-pypi-friendly-readme/
