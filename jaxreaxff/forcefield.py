@@ -571,8 +571,6 @@ class ForceField:
             self.flattened_force_field = pickle.load(input_file)
 
 def symm_force_field(flattened_force_field,flattened_non_dif_params):
-    oldtypes = [type(x) for x in flattened_force_field]
-    flattened_force_field = [np.array(x) for x in flattened_force_field if type(x)==onp.ndarray]
     # 2 body-params
     # for now global
     body_2_indices = np.tril_indices(len(flattened_force_field[0]),k=-1)
@@ -582,42 +580,48 @@ def symm_force_field(flattened_force_field,flattened_non_dif_params):
     body_4_indices_dst = flattened_non_dif_params[22]
     #off diag. ones
     for i in range(3, 6):
-        print(body_2_indices)
-        flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
+        # flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
     for i in range(81, 87):
-        flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
+        # flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
     for i in range(8, 22):
-        flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
+        flattened_force_field[i][body_2_indices] = flattened_force_field[i].transpose()[body_2_indices]
+        # flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
 
-    flattened_force_field[57].at[body_2_indices].set(flattened_force_field[57].transpose()[body_2_indices])
+    flattened_force_field[57][body_2_indices] = flattened_force_field[57].transpose()[body_2_indices]
+    # flattened_force_field[57].at[body_2_indices].set(flattened_force_field[57].transpose()[body_2_indices])
     # flattened_force_field[57] = jax.ops.index_update(flattened_force_field[57],  #vover
     #             body_2_indices, flattened_force_field[57].transpose()[body_2_indices])
 
     # 3-body parameters
-    flattened_force_field[36].at[body_3_indices_dst].set(flattened_force_field[36].transpose()[body_3_indices_src])
+    flattened_force_field[36][body_2_indices] = flattened_force_field[36].transpose()[body_2_indices]
+    # flattened_force_field[36].at[body_3_indices_dst].set(flattened_force_field[36].transpose()[body_3_indices_src])
     # flattened_force_field[36] = jax.ops.index_update(flattened_force_field[36],
     #                             body_3_indices_dst, flattened_force_field[36][body_3_indices_src])
 
 
     for i in range(38, 44):
-        flattened_force_field[i].at[body_3_indices_dst].set(flattened_force_field[i].transpose()[body_3_indices_dst_src])
+        flattened_force_field[i][body_3_indices_dst] = flattened_force_field[i].transpose()[body_3_indices_dst_src]
+        # flattened_force_field[i].at[body_3_indices_dst].set(flattened_force_field[i].transpose()[body_3_indices_dst_src])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #                             body_3_indices_dst, flattened_force_field[i][body_3_indices_src])
     #4-body params
     for i in range(66, 71):
-        flattened_force_field[i].at[body_4_indices_dst].set(flattened_force_field[i].transpose()[body_4_indices_dst_src])
+        flattened_force_field[i][body_4_indices_dst] = flattened_force_field[i].transpose()[body_4_indices_dst_src]
+        # flattened_force_field[i].at[body_4_indices_dst].set(flattened_force_field[i].transpose()[body_4_indices_dst_src])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #                             body_4_indices_dst, flattened_force_field[i][body_4_indices_src])
 
-    return     flattened_force_field
+    return flattened_force_field
 
 def handle_offdiag(flattened_force_field,flattened_non_dif_params):
     '''
