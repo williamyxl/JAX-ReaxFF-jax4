@@ -434,8 +434,15 @@ def loss(flattened_force_field,flattened_non_dif_params,
     charge_items_flag = 'CHARGE' in structured_training_data
     geo_items_flag = 'GEOMETRY-2' in structured_training_data or 'GEOMETRY-3' in structured_training_data or 'GEOMETRY-4' in structured_training_data
     force_items_flag = 'FORCE-ATOM' in structured_training_data or 'FORCE-RMSG' in structured_training_data or 'RMSG-NEW' in structured_training_data
-    print(l, type(l))
-    list_counts = onp.array([len(l) for l in list_all_type])
+    print(list_all_type, type(list_all_type))
+    list_counts = []
+    for l in list_all_type:
+        if type(l) == bool:
+            list_counts.append(1)
+        else:
+            list_counts.append(len(l))
+    list_counts = onp.array(list_counts)
+    #list_counts = onp.array([len(l) for l in list_all_type])
     # max atom count
     total_num_systems = onp.sum(list_counts)
     pot_func = jax.vmap(calculate_total_energy,in_axes=(None,None,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))
