@@ -99,8 +99,8 @@ def calculate_total_energy_multi(flattened_force_field, flattened_non_dif_params
 
         if isinstance(all_pots, np.ndarray):
                 all_pots.at[jax.ops.index[start:end]].set(pots)
-            else:
-                all_pots[jax.ops.index[start:end]] = pots
+        else:
+            all_pots[jax.ops.index[start:end]] = pots
         # all_pots = jax.ops.index_update(all_pots, jax.ops.index[start:end], pots)
         #all_pots = jax.ops.index_update(all_pots, jax.ops.index[start:end], pots + bond_rest_pot + angle_rest_pot + torsion_rest_pot)
         #all_bo.append(bo)
