@@ -573,7 +573,6 @@ class ForceField:
 def symm_force_field(flattened_force_field,flattened_non_dif_params):
     oldtypes = [type(x) for x in flattened_force_field]
     [np.array(x) for x in flattened_force_field if type(x)==onp.ndarray]
-    flattened_force_field = np.array(flattened_force_field)
     # 2 body-params
     # for now global
     body_2_indices = np.tril_indices(len(flattened_force_field[0]),k=-1)
