@@ -582,6 +582,7 @@ def symm_force_field(flattened_force_field,flattened_non_dif_params):
     body_4_indices_dst = flattened_non_dif_params[22]
     #off diag. ones
     for i in range(3, 6):
+        print(body_2_indices)
         flattened_force_field[i].at[body_2_indices].set(flattened_force_field[i].transpose()[body_2_indices])
         # flattened_force_field[i] = jax.ops.index_update(flattened_force_field[i],
         #             body_2_indices, flattened_force_field[i].transpose()[body_2_indices])
